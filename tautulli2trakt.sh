@@ -184,6 +184,7 @@ cat << EOF
 -E | --Episode      Episode number
 -t | --TVDB         TVDB ID
 -i | --IMDB         IMDB ID
+-T | --TMDB         TMDB ID
 -P | --progress     Percentage progress (Ex: 10.0)
 -h | --help         This help
 
@@ -239,6 +240,11 @@ case $key in
     ;;
     -t|--TVDB)
     TVDB_ID="$2"
+    shift # past argument
+    shift # past value
+    ;;
+    -T|--TMDB)
+    TMDB_ID="$2"
     shift # past argument
     shift # past value
     ;;
@@ -303,7 +309,8 @@ if [ -n "$MEDIA" ] ; then
             \\\"title\\\": \\\"${MOVIENAME}\\\",
             \\\"year\\\": ${YEAR},
             \\\"ids\\\": {
-                \\\"imdb\\\": \\\"${IMDB_ID}\\\"
+             \\\"imdb\\\": \\\"${IMDB_ID}\\\",
+             \\\"tmdb\\\": ${TMDB_ID}
             }
         }"
     elif [[ $MEDIA == "show" ]] || [[ $MEDIA == "episode" ]]; then
@@ -311,7 +318,8 @@ if [ -n "$MEDIA" ] ; then
             \\\"title\\\": \\\"${SHOWNAME}\\\",
             \\\"year\\\": ${YEAR},
             \\\"ids\\\": {
-                \\\"tvdb\\\": ${TVDB_ID}
+             \\\"tvdb\\\": ${TVDB_ID},
+             \\\"tmdb\\\": ${TMDB_ID}
             }
         },
         \\\"episode\\\": {
