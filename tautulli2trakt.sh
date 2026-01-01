@@ -318,6 +318,7 @@ if [ -n "$MEDIA" ] ; then
             \\\"title\\\": \\\"${SHOWNAME}\\\",
             \\\"year\\\": ${YEAR},
             \\\"ids\\\": {
+             \\\"imdb\\\": \\\"${IMDB_ID}\\\",            
              \\\"tvdb\\\": ${TVDB_ID},
              \\\"tmdb\\\": ${TMDB_ID}
             }
