@@ -301,7 +301,6 @@ if [ -n "$MEDIA" ] ; then
         echo "Error: Unable to write on $SCRIPTNAME.data"
         exit 1
       fi
-      
     fi
 
    # Build escaped JSON id fragments. Only conditionally include TVDB and TMDB
@@ -338,7 +337,6 @@ if [ -n "$MEDIA" ] ; then
          \\\"season\\\": ${SEASON},
          \\\"number\\\": ${EPISODE}
       }"
-
    fi
     
    scrobble="$(cat << EOF
