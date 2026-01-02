@@ -303,32 +303,43 @@ if [ -n "$MEDIA" ] ; then
       fi
       
     fi
-    
-    if [[ $MEDIA == "movie" ]]; then
-       body="\\\"movie\\\": {
-            \\\"title\\\": \\\"${MOVIENAME}\\\",
-            \\\"year\\\": ${YEAR},
-            \\\"ids\\\": {
-             \\\"imdb\\\": \\\"${IMDB_ID}\\\",
-             \\\"tmdb\\\": ${TMDB_ID}
-            }
-        }"
-    elif [[ $MEDIA == "show" ]] || [[ $MEDIA == "episode" ]]; then
-       body="\\\"show\\\": {
-            \\\"title\\\": \\\"${SHOWNAME}\\\",
-            \\\"year\\\": ${YEAR},
-            \\\"ids\\\": {
-             \\\"imdb\\\": \\\"${IMDB_ID}\\\",            
-             \\\"tvdb\\\": ${TVDB_ID},
-             \\\"tmdb\\\": ${TMDB_ID}
-            }
-        },
-        \\\"episode\\\": {
-            \\\"season\\\": ${SEASON},
-            \\\"number\\\": ${EPISODE}
-        }"
-    
-    fi
+
+   # Build escaped JSON id fragments. Only conditionally include TVDB and TMDB
+   movie_ids="\\\"imdb\\\": \\\"${IMDB_ID}\\\""
+   if [ -n "${TMDB_ID}" ] && [ "${TMDB_ID}" != "0" ]; then
+      movie_ids="${movie_ids},\n             \\\"tmdb\\\": ${TMDB_ID}"
+   fi
+
+   show_ids="\\\"imdb\\\": \\\"${IMDB_ID}\\\""
+   if [ -n "${TVDB_ID}" ] && [ "${TVDB_ID}" != "0" ]; then
+      show_ids="${show_ids},\n             \\\"tvdb\\\": ${TVDB_ID}"
+   fi
+   if [ -n "${TMDB_ID}" ] && [ "${TMDB_ID}" != "0" ]; then
+      show_ids="${show_ids},\n             \\\"tmdb\\\": ${TMDB_ID}"
+   fi
+
+   if [[ $MEDIA == "movie" ]]; then
+      body="\\\"movie\\\": {
+         \\\"title\\\": \\\"${MOVIENAME}\\\",
+         \\\"year\\\": ${YEAR},
+         \\\"ids\\\": {
+          ${movie_ids}
+         }
+      }"
+   elif [[ $MEDIA == "show" ]] || [[ $MEDIA == "episode" ]]; then
+      body="\\\"show\\\": {
+         \\\"title\\\": \\\"${SHOWNAME}\\\",
+         \\\"year\\\": ${YEAR},
+         \\\"ids\\\": {
+          ${show_ids}
+         }
+      },
+      \\\"episode\\\": {
+         \\\"season\\\": ${SEASON},
+         \\\"number\\\": ${EPISODE}
+      }"
+
+   fi
     
    scrobble="$(cat << EOF
    curl --silent \
