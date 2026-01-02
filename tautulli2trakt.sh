@@ -31,7 +31,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 fi
 
 ## App info
-APP_VER=1.2.0
+APP_VER=1.2.1
 APP_DATE=$(${_date:-date} +%F)
 
 ## Script path and name
