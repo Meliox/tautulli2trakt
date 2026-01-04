@@ -306,15 +306,15 @@ if [ -n "$MEDIA" ] ; then
    # Build escaped JSON id fragments. Only conditionally include TVDB and TMDB
    movie_ids="\\\"imdb\\\": \\\"${IMDB_ID}\\\""
    if [ -n "${TMDB_ID}" ] && [ "${TMDB_ID}" != "0" ]; then
-      movie_ids="${movie_ids},\n             \\\"tmdb\\\": ${TMDB_ID}"
+      movie_ids="${movie_ids}, \\\"tmdb\\\": ${TMDB_ID}"
    fi
 
    show_ids="\\\"imdb\\\": \\\"${IMDB_ID}\\\""
    if [ -n "${TVDB_ID}" ] && [ "${TVDB_ID}" != "0" ]; then
-      show_ids="${show_ids},\n             \\\"tvdb\\\": ${TVDB_ID}"
+      show_ids="${show_ids}, \\\"tvdb\\\": ${TVDB_ID}"
    fi
    if [ -n "${TMDB_ID}" ] && [ "${TMDB_ID}" != "0" ]; then
-      show_ids="${show_ids},\n             \\\"tmdb\\\": ${TMDB_ID}"
+      show_ids="${show_ids}, \\\"tmdb\\\": ${TMDB_ID}"
    fi
 
    if [[ $MEDIA == "movie" ]]; then
@@ -354,7 +354,7 @@ if [ -n "$MEDIA" ] ; then
    }" 'https://api.trakt.tv/scrobble/${ACTION}' 
 EOF
 )"
-   
+echo $scrobble   
    if [ -z "$DEBUG" ]; then
    
        echo $scrobble | sh 2>/dev/null 1>&2 
