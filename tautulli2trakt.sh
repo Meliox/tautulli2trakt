@@ -32,6 +32,7 @@ fi
 
 ## App info
 APP_VER=1.2.3
+
 APP_DATE=$(${_date:-date} +%F)
 
 ## Script path and name
