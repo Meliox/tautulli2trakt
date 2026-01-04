@@ -31,7 +31,8 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 fi
 
 ## App info
-APP_VER=1.2.2
+APP_VER=1.2.3
+
 APP_DATE=$(${_date:-date} +%F)
 
 ## Script path and name
@@ -354,7 +355,7 @@ if [ -n "$MEDIA" ] ; then
    }" 'https://api.trakt.tv/scrobble/${ACTION}' 
 EOF
 )"
-echo $scrobble   
+
    if [ -z "$DEBUG" ]; then
    
        echo $scrobble | sh 2>/dev/null 1>&2 
