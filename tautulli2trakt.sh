@@ -354,7 +354,7 @@ if [ -n "$MEDIA" ] ; then
    }" 'https://api.trakt.tv/scrobble/${ACTION}' 
 EOF
 )"
-echo $scrobble   
+
    if [ -z "$DEBUG" ]; then
    
        echo $scrobble | sh 2>/dev/null 1>&2 
